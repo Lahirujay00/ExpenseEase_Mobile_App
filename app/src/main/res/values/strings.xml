@@ -9,4 +9,6 @@
     <string name="next">Next</string>
     <string name="get_started">Get Started</string>
     <string name="onboarding_image">Onboarding illustration</string>
+
+    <string name="copyright_text">© 2025 ExpenseEase. All rights reserved.</string>
 </resources>

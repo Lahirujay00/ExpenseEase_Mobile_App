@@ -15,8 +15,6 @@
     <color name="secondary">#FFD879</color>
 
     <!-- Splash Screen Colors -->
-    <color name="splash_background">@color/primary</color>
-    <color name="splash_text_secondary">#D9FFFFFF</color>
 
     <!-- App Colors -->
     <color name="background">#FAFAFE</color>
@@ -35,4 +33,10 @@
     <color name="entertainment">#9C27B0</color>
     <color name="shopping">#8BC34A</color>
     <color name="other">#607D8B</color>
+
+    <!-- Additional colors for enhanced splash -->
+    <color name="splash_background">#3A4FD8</color>
+    <color name="splash_text_secondary">#E6FFFFFF</color>
+    <color name="splash_text_tertiary">#99FFFFFF</color>
+    <color name="card_transparent">#15FFFFFF</color>
 </resources>

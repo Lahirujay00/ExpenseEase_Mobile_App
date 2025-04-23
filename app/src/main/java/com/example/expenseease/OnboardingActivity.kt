@@ -5,23 +5,20 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.example.expenseease.databinding.ActivityOnboardingBinding
+import com.example.expenseease.databinding.OnboardingPageBinding
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class OnboardingActivity : AppCompatActivity() {
 
-    private lateinit var viewPager: ViewPager2
-    private lateinit var btnSkip: MaterialButton
-    private lateinit var btnNext: MaterialButton
-    private lateinit var pageIndicator: TabLayout
-    private lateinit var pagerAdapter: OnboardingPagerAdapter
+    private lateinit var binding: ActivityOnboardingBinding
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var pagerAdapter: OnboardingPagerAdapter
 
     // Define onboarding content
     private val onboardingData = listOf(
@@ -44,65 +41,49 @@ class OnboardingActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_onboarding)
+        binding = ActivityOnboardingBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        // Initialize SharedPreferences
-        sharedPreferences = getSharedPreferences("expense_ease_prefs", MODE_PRIVATE)
-
-        // Check if onboarding has been completed before
-        if (sharedPreferences.getBoolean("is_onboarding_completed", false)) {
-            navigateToMainActivity()
-            return
-        }
-
-        initViews()
         setupViewPager()
         setupListeners()
     }
 
-    private fun initViews() {
-        viewPager = findViewById(R.id.viewPager)
-        btnSkip = findViewById(R.id.btnSkip)
-        btnNext = findViewById(R.id.btnNext)
-        pageIndicator = findViewById(R.id.pageIndicator)
-    }
-
     private fun setupViewPager() {
         pagerAdapter = OnboardingPagerAdapter(onboardingData)
-        viewPager.adapter = pagerAdapter
+        binding.viewPager.adapter = pagerAdapter
 
         // Connect TabLayout with ViewPager2
-        TabLayoutMediator(pageIndicator, viewPager) { _, _ -> }.attach()
+        TabLayoutMediator(binding.pageIndicator, binding.viewPager) { _, _ -> }.attach()
 
         // Update button text based on page position
-        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 if (position == onboardingData.size - 1) {
-                    btnNext.text = getString(R.string.get_started)
+                    binding.btnNext.text = getString(R.string.get_started)
                 } else {
-                    btnNext.text = getString(R.string.next)
+                    binding.btnNext.text = getString(R.string.next)
                 }
 
                 // Show skip button only on first and second pages
-                btnSkip.visibility = if (position < onboardingData.size - 1) View.VISIBLE else View.INVISIBLE
+                binding.btnSkip.visibility = if (position < onboardingData.size - 1) View.VISIBLE else View.INVISIBLE
             }
         })
     }
 
     private fun setupListeners() {
-        btnNext.setOnClickListener {
-            val currentPosition = viewPager.currentItem
+        binding.btnNext.setOnClickListener {
+            val currentPosition = binding.viewPager.currentItem
             if (currentPosition < onboardingData.size - 1) {
                 // Go to next page
-                viewPager.currentItem = currentPosition + 1
+                binding.viewPager.currentItem = currentPosition + 1
             } else {
                 // Complete onboarding
                 completeOnboarding()
             }
         }
 
-        btnSkip.setOnClickListener {
+        binding.btnSkip.setOnClickListener {
             completeOnboarding()
         }
     }
@@ -114,7 +95,7 @@ class OnboardingActivity : AppCompatActivity() {
     }
 
     private fun navigateToMainActivity() {
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
         finish()
     }
@@ -126,28 +107,24 @@ class OnboardingActivity : AppCompatActivity() {
         val description: String
     )
 
-    // ViewPager Adapter
+    // ViewPager Adapter (now uses ViewBinding)
     inner class OnboardingPagerAdapter(private val items: List<OnboardingItem>) :
         RecyclerView.Adapter<OnboardingPagerAdapter.OnboardingViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OnboardingViewHolder {
-            val view = layoutInflater.inflate(R.layout.onboarding_page, parent, false)
-            return OnboardingViewHolder(view)
+            val binding = OnboardingPageBinding.inflate(layoutInflater, parent, false)
+            return OnboardingViewHolder(binding)
         }
 
         override fun onBindViewHolder(holder: OnboardingViewHolder, position: Int) {
             val item = items[position]
-            holder.imageView.setImageResource(item.imageRes)
-            holder.titleView.text = item.title
-            holder.descriptionView.text = item.description
+            holder.binding.imgOnboarding.setImageResource(item.imageRes)
+            holder.binding.tvTitle.text = item.title
+            holder.binding.tvDescription.text = item.description
         }
 
         override fun getItemCount() = items.size
 
-        inner class OnboardingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            val imageView: ImageView = itemView.findViewById(R.id.imgOnboarding)
-            val titleView: TextView = itemView.findViewById(R.id.tvTitle)
-            val descriptionView: TextView = itemView.findViewById(R.id.tvDescription)
-        }
+        inner class OnboardingViewHolder(val binding: OnboardingPageBinding) : RecyclerView.ViewHolder(binding.root)
     }
 }
