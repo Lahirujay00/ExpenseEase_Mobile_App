@@ -1,23 +1,20 @@
 package com.example.expenseease
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.expenseease.databinding.ActivityOnboardingBinding
 import com.example.expenseease.databinding.OnboardingPageBinding
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class OnboardingActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityOnboardingBinding
-    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var pagerAdapter: OnboardingPagerAdapter
 
     // Define onboarding content
@@ -44,9 +41,27 @@ class OnboardingActivity : AppCompatActivity() {
         binding = ActivityOnboardingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Check if coming from splash screen
+        val fromSplash = intent.getBooleanExtra("FROM_SPLASH", false)
+
+        // Set up UI before animations
         setupViewPager()
         setupListeners()
+
+        // Apply animations only when not coming from splash
+        if (!fromSplash) {
+            applyEntranceAnimations()
+        }
     }
+    private fun applyEntranceAnimations() {
+        // Apply any entrance animations here
+        val fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in)
+        binding.viewPager.startAnimation(fadeIn)
+        binding.pageIndicator.startAnimation(fadeIn)
+        binding.btnNext.startAnimation(fadeIn)
+        binding.btnSkip.startAnimation(fadeIn)
+    }
+
 
     private fun setupViewPager() {
         pagerAdapter = OnboardingPagerAdapter(onboardingData)
@@ -89,13 +104,12 @@ class OnboardingActivity : AppCompatActivity() {
     }
 
     private fun completeOnboarding() {
-        // Mark onboarding as completed
-        sharedPreferences.edit().putBoolean("is_onboarding_completed", true).apply()
-        navigateToMainActivity()
+        // Simply navigate to the startup activity without using SharedPreferences
+        navigateToStartupActivity()
     }
 
-    private fun navigateToMainActivity() {
-        val intent = Intent(this, HomeActivity::class.java)
+    private fun navigateToStartupActivity() {
+        val intent = Intent(this, StartupActivity::class.java)
         startActivity(intent)
         finish()
     }

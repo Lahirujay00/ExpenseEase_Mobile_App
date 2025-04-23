@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:repeatMode="reverse"
+    android:repeatCount="infinite">
+    <translate
+        android:duration="6000"
+        android:fromXDelta="-5%"
+        android:toXDelta="5%"
+        android:interpolator="@android:interpolator/accelerate_decelerate"/>
+    <translate
+        android:duration="8000"
+        android:fromYDelta="-2%"
+        android:toYDelta="2%"
+        android:interpolator="@android:interpolator/accelerate_decelerate"/>
+</set>

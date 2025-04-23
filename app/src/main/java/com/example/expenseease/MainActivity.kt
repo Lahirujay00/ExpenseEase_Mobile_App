@@ -4,20 +4,31 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import com.example.expenseease.utils.SharedPreferenceManager
 import com.google.android.material.progressindicator.LinearProgressIndicator
 
 class MainActivity : AppCompatActivity() {
 
     private val splashDelay: Long = 3000 // 3 seconds
+    private lateinit var sharedPreferenceManager: SharedPreferenceManager
+    private val TAG = "MainActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Initialize SharedPreferenceManager to check login status
+        sharedPreferenceManager = SharedPreferenceManager(this)
+
+        // Debug: Print login status and user information
+        Log.d(TAG, "Is user logged in: ${sharedPreferenceManager.isUserLoggedIn()}")
+        Log.d(TAG, "Current user email: ${sharedPreferenceManager.getCurrentUserEmail() ?: "none"}")
 
         // Set immersive mode for full screen splash
         window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_IMMERSIVE
@@ -70,15 +81,46 @@ class MainActivity : AppCompatActivity() {
                 .start()
         }, 1000)
 
-        // Navigate to OnboardingActivity after delay
+        // Navigate after delay - check login status first
         Handler(Looper.getMainLooper()).postDelayed({
-            val intent = Intent(this, OnboardingActivity::class.java)
-            startActivity(intent)
-
-            // Use no animation for the transition
-            overridePendingTransition(0, 0)
-
-            finish()
+            // IMPORTANT: Check if user is logged in
+            if (sharedPreferenceManager.isUserLoggedIn()) {
+                // User is logged in, navigate directly to HomeActivity
+                Log.d(TAG, "User is logged in, navigating to HomeActivity")
+                navigateToHomeScreen()
+            } else {
+                // User is not logged in, continue with normal onboarding flow
+                Log.d(TAG, "User is not logged in, navigating to OnboardingActivity")
+                navigateToOnboardingScreen()
+            }
         }, splashDelay)
+    }
+
+    private fun navigateToHomeScreen() {
+        val intent = Intent(this, HomeActivity::class.java)
+        // Clear back stack to prevent going back to splash or onboarding
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        // Use no animation for the transition
+        overridePendingTransition(0, 0)
+        finish()
+    }
+
+    private fun navigateToOnboardingScreen() {
+        val intent = Intent(this, OnboardingActivity::class.java)
+        // Add this flag to indicate coming from the splash screen
+        intent.putExtra("FROM_SPLASH", true)
+
+        // Change these flags - they might be causing the blank screen
+        // Use a simpler flag configuration
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+
+        startActivity(intent)
+
+        // Make sure this finishes AFTER starting the next activity
+        finish()
+
+        // Use a different animation set that won't cause blanking
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
 }

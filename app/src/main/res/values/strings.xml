@@ -10,5 +10,34 @@
     <string name="get_started">Get Started</string>
     <string name="onboarding_image">Onboarding illustration</string>
 
+    <!-- Add these to your existing strings.xml file -->
+    <string name="welcome_to_expenseease">Welcome to ExpenseEase</string>
+    <string name="startup_welcome_message">Take control of your finances with our simple and intuitive expense tracking app.</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Create Account</string>
+    <string name="background_pattern">Background Pattern</string>
+
+    <!-- Add to your existing strings.xml -->
+    <string name="back">Back</string>
+    <!-- Add this to your strings.xml -->
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="toggle_password_visibility">Toggle password visibility</string>
+    <!-- Add these to your existing strings.xml -->
+    <string name="dont_have_account">Don\'t have an account?</string>
+
+    <!-- Add these to your strings.xml file -->
+    <string name="full_name">Full Name</string>
+    <string name="enter_full_name">Enter your full name</string>
+    <string name="enter_email">Enter your email</string>
+    <string name="create_password">Create password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="confirm_your_password">Confirm your password</string>
+    <string name="already_have_account">Already have an account?</string>
+
+
     <string name="copyright_text">© 2025 ExpenseEase. All rights reserved.</string>
+    <string name="logout" />
 </resources>
