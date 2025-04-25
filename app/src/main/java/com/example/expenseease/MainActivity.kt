@@ -11,7 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
-import com.example.expenseease.utils.SharedPreferenceManager
+import com.example.expenseease.SharedPreferenceManager
 import com.google.android.material.progressindicator.LinearProgressIndicator
 
 class MainActivity : AppCompatActivity() {
@@ -111,16 +111,16 @@ class MainActivity : AppCompatActivity() {
         // Add this flag to indicate coming from the splash screen
         intent.putExtra("FROM_SPLASH", true)
 
-        // Change these flags - they might be causing the blank screen
-        // Use a simpler flag configuration
+
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
 
         startActivity(intent)
 
-        // Make sure this finishes AFTER starting the next activity
+
         finish()
 
-        // Use a different animation set that won't cause blanking
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
+
+
 }

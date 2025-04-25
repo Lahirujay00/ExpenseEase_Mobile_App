@@ -1,4 +1,4 @@
-package com.example.expenseease.utils
+package com.example.expenseease
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -10,12 +10,18 @@ class SharedPreferenceManager(private val context: Context) {
         "ExpenseEasePrefs", Context.MODE_PRIVATE
     )
 
+    // Initialize UserProfileManager
+    private val userProfileManager = UserProfileManager(context)
+
     companion object {
         private const val TAG = "SharedPrefManager"
         private const val KEY_USER_LOGGED_IN = "user_logged_in"
         private const val KEY_CURRENT_USER_EMAIL = "current_user_email"
         private const val KEY_PREFIX_NAME = "name_for_"
         private const val KEY_PREFIX_PASSWORD = "password_for_"
+        private const val KEY_USER_NAME = "user_name"
+        private const val KEY_NOTIFICATION_ENABLED = "notification_enabled"
+        private const val KEY_DARK_MODE_ENABLED = "dark_mode_enabled"
     }
 
     // Store user signup data
@@ -26,6 +32,13 @@ class SharedPreferenceManager(private val context: Context) {
             editor.putString(KEY_PREFIX_PASSWORD + email, password)
             // Use commit() instead of apply() for immediate write
             val result = editor.commit()
+
+            // Also update user profile info
+            if (result) {
+                userProfileManager.setUserName(name)
+                userProfileManager.setUserEmail(email)
+            }
+
             Log.d(TAG, "User saved: $email, Success: $result")
             result
         } catch (e: Exception) {
@@ -56,6 +69,14 @@ class SharedPreferenceManager(private val context: Context) {
         editor.putString(KEY_CURRENT_USER_EMAIL, email)
         // Use commit() instead of apply() for critical authentication changes
         val result = editor.commit()
+
+        // Update user profile with the current user's info
+        if (result) {
+            val name = sharedPreferences.getString(KEY_PREFIX_NAME + email, "User")
+            userProfileManager.setUserName(name ?: "User")
+            userProfileManager.setUserEmail(email)
+        }
+
         Log.d(TAG, "User set as logged in: $email, Success: $result")
     }
 
@@ -72,10 +93,9 @@ class SharedPreferenceManager(private val context: Context) {
         return sharedPreferences.getString(KEY_CURRENT_USER_EMAIL, null)
     }
 
-    // Get current user's name
-    fun getCurrentUserName(): String? {
-        val email = getCurrentUserEmail() ?: return null
-        return sharedPreferences.getString(KEY_PREFIX_NAME + email, null)
+    // Get current user's name - uses UserProfileManager
+    fun getCurrentUserName(): String {
+        return userProfileManager.getUserName()
     }
 
     // Log out user
@@ -94,6 +114,8 @@ class SharedPreferenceManager(private val context: Context) {
         Log.d(TAG, "=== All SharedPreferences Data ===")
         Log.d(TAG, "Is logged in: ${sharedPreferences.getBoolean(KEY_USER_LOGGED_IN, false)}")
         Log.d(TAG, "Current email: ${sharedPreferences.getString(KEY_CURRENT_USER_EMAIL, "none")}")
+        Log.d(TAG, "User profile name: ${userProfileManager.getUserName()}")
+        Log.d(TAG, "User profile email: ${userProfileManager.getUserEmail()}")
 
         val allEntries = sharedPreferences.all
         for (entry in allEntries.entries) {
@@ -105,5 +127,17 @@ class SharedPreferenceManager(private val context: Context) {
             }
         }
         Log.d(TAG, "=== End of SharedPreferences Data ===")
+    }
+
+    fun setCurrentUserName(userName: String) {
+        sharedPreferences.edit().putString(KEY_USER_NAME, userName).apply()
+    }
+
+    fun isNotificationEnabled(): Boolean {
+        return sharedPreferences.getBoolean(KEY_NOTIFICATION_ENABLED, true)
+    }
+
+    fun setNotificationEnabled(enabled: Boolean) {
+        sharedPreferences.edit().putBoolean(KEY_NOTIFICATION_ENABLED, enabled).apply()
     }
 }

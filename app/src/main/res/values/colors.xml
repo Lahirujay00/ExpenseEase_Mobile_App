@@ -1,31 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="primary">#5E6EF7</color>
+    <color name="primary_dark">#282E78</color>
+    <color name="primary_variant">#5E6EF7</color>
+    <color name="secondary">#FF4081</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="background">#F5F5F5</color>
+    <color name="card_background">#FFFFFF</color>
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="expense">#FF5252</color>
+    <color name="income_green">#4CAF50</color>
+
+    <color name="accent">#FF4081</color>
+    <color name="background_gray">#F5F5F5</color>
+    <color name="teal_200">#03DAC5</color>
+    <color name="teal_700">#018786</color>
 
     <!-- ExpenseEase Theme Colors -->
-    <color name="primary">#5E6EF7</color>
-    <color name="primary_dark">#4A56C9</color>
-    <color name="accent">#FF6E91</color>
-    <color name="secondary">#FFD879</color>
+    
 
     <!-- Splash Screen Colors -->
 
+
+
     <!-- App Colors -->
-    <color name="background">#FAFAFE</color>
-    <color name="card_background">#FFFFFF</color>
-    <color name="text_primary">#1F1F39</color>
-    <color name="text_secondary">#6E6E8B</color>
+
     <color name="divider">#E5E5E5</color>
 
     <!-- Transaction Categories -->
     <color name="income">#4CAF50</color>
-    <color name="expense">#F44336</color>
     <color name="savings">#2196F3</color>
     <color name="food">#FF9800</color>
     <color name="transport">#03A9F4</color>
@@ -42,4 +47,61 @@
 
     <!-- Add these to your existing colors.xml file -->
     <color name="startup_card_background">#FFFFFF</color>
+
+    <!-- Card and Container Colors -->
+    <color name="button_background">#F0F2F5</color>
+    <color name="search_background">#F0F2F5</color>
+    <color name="bottom_nav_background">#FFFFFF</color>
+    <!--  <color name="card_transparent">#CCFFFFFF</color> -->
+
+     <!-- Text Colors -->
+     <color name="htext_secondary">#666666</color>
+     <color name="text_hint">#888888</color>
+     <color name="icon_tint">#555555</color>
+     <color name="white_transparent">#CCFFFFFF</color>
+
+
+     <!-- Transaction Colors -->
+    <color name="expense_red">#FF5252</color>
+    <color name="transfer_blue">#2196F3</color>
+
+    <!-- Progress Bar -->
+    <color name="progress_track">#E0E0E0</color>
+
+    <!-- Ripple Effect -->
+    <color name="ripple_color">#1F000000</color>
+
+    <!-- Category Colors -->
+    <color name="category_food">#FF9800</color>
+    <color name="category_shopping">#E91E63</color>
+    <color name="category_bills">#3F51B5</color>
+    <color name="category_entertainment">#9C27B0</color>
+    <color name="category_transport">#2196F3</color>
+    <color name="category_health">#009688</color>
+    <color name="category_other">#607D8B</color>
+
+
+
+    <!-- Category background colors -->
+    <color name="income_bg">#E8F5E9</color>
+    <color name="expense_bg">#FFEBEE</color>
+    <color name="food_bg">#E0F7FA</color>
+    <color name="transport_bg">#E8EAF6</color>
+    <color name="shopping_bg">#FFF8E1</color>
+    <color name="entertainment_bg">#F3E5F5</color>
+    <color name="bills_bg">#FFEBEE</color>
+    <color name="health_bg">#E0F2F1</color>
+    <color name="salary_bg">#E8F5E9</color>
+    <color name="freelance_bg">#DCEDC8</color>
+    <color name="investment_bg">#F1F8E9</color>
+    <color name="primary_light">#5E6EF7</color>
+
+    <color name="card_stroke">#E0E0E0</color>
+    <color name="accent_light">#E5F1FF</color>
+
+    <color name="warning_yellow">#FFC107</color>
+
+    <!-- Button stroke color -->
+    <color name="stroke_color">#E0E0E0</color>
+
 </resources>

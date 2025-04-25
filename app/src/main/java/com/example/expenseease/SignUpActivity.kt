@@ -15,7 +15,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.example.expenseease.databinding.ActivitySignUpBinding
-import com.example.expenseease.utils.SharedPreferenceManager
+import com.example.expenseease.SharedPreferenceManager
 import com.google.android.material.snackbar.Snackbar
 
 class SignUpActivity : AppCompatActivity() {

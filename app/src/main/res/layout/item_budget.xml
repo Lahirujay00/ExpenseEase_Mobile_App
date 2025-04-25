@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="4dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvBudgetCategory"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                tools:text="Food &amp; Dining" />
+
+            <TextView
+                android:id="@+id/tvBudgetAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                tools:text="$500.00" />
+        </LinearLayout>
+
+        <!-- Added Budget Period -->
+        <TextView
+            android:id="@+id/tvBudgetPeriod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/poppins"
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp"
+            tools:text="Monthly" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvBudgetUsage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/poppins"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp"
+                tools:text="$350.00 used (70%)" />
+
+            <TextView
+                android:id="@+id/tvBudgetRemaining"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:textColor="@color/income_green"
+                android:textSize="14sp"
+                tools:text="$150.00 left" />
+        </LinearLayout>
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progressBudget"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:indicatorColor="@color/primary"
+            app:trackColor="@color/divider"
+            app:trackCornerRadius="4dp"
+            app:trackThickness="8dp"
+            tools:progress="70" />
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
